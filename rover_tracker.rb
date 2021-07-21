@@ -13,6 +13,21 @@ def heading_map (ch)
   heading
 end
 
+def ch_map (heading)
+  ch = nil
+  
+  if (heading == [0, 1])
+    ch =  'N'  
+  elsif (heading ==[0, -1])
+    ch = 'S'
+  elsif (heading == [1, 0])
+    ch = 'E'
+  else
+    ch = 'W'
+  end
+  ch
+end
+
 def angle_deg(size)
   size += 90
   if (size >= 180)
@@ -65,6 +80,7 @@ def rover_tracker(input)
       heading = turn(heading, value, angle)
     end
   end
+  posn << ch_map(heading)
   end_posns << posn
  end
  end_posns
