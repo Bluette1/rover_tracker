@@ -58,8 +58,16 @@ def add(posn_1, posn_2)
   [x_posn, y_posn]
 end
 
+def bounds_exceeded? (posn, bounds)
+  exceeded = false 
+  if (posn[0] > bounds[0].to_i || posn[1] > bounds[1].to_i || posn[0] < 0 || posn[1] < 0)
+    exceeded = true
+  end
+  exceeded
+end
+
 def rover_tracker(input)
- bounds = input[0]
+ bounds = input[0].split
 
  end_posns = []
 
@@ -72,7 +80,13 @@ def rover_tracker(input)
   heading = heading_map(rover[2])
   moves = rover[3].split('')
 
-  for value in moves do   
+  for value in moves do 
+
+    if (bounds_exceeded?(posn, bounds))
+      p 'Bounds exceeded!'
+      return
+    end
+
     if(value == 'M')
       posn = add(heading, posn)
     else
@@ -89,4 +103,8 @@ end
 input_file = File.open('input.txt')
 input = input_file.readlines.map(&:chomp)
 
-p rover_tracker(input)
+output = rover_tracker(input)
+
+output.each do |line|
+  p line.join(' ')
+end
